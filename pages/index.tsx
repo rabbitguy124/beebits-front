@@ -95,13 +95,13 @@ export default function Home() {
       >
         <VStack alignItems='flex-start'>
           <Text color='rgb(17, 24, 39)' fontSize='3rem' fontWeight='bold'>
-            What are the Meebits?
+            What are the Beebits?
           </Text>
           <VStack spacing='4rem' mt='4rem !important'>
             <ListItem
               imageURL='/user.svg'
               title='The Characters'
-              description='The Meebits are 20,000 unique 3D voxel characters, created by a custom generative algorithm, then registered on the Ethereum blockchain.
+              description='The Beebits are 20,000 unique 3D voxel characters, created by a custom generative algorithm, then registered on the Ethereum blockchain.
               '
             />
             <ListItem
@@ -112,7 +112,7 @@ export default function Home() {
             <ListItem
               imageURL='/exchange.svg'
               title='Integrated No-Fee Marketplace'
-              description='Also included in the contract is a custom marketplace that supports like-kind trading of up to 100 Meebits per transaction, along with all the standard buy, bid and ask transactions.'
+              description='Also included in the contract is a custom marketplace that supports like-kind trading of up to 100 Beebits per transaction, along with all the standard buy, bid and ask transactions.'
             />
           </VStack>
         </VStack>
