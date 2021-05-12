@@ -6,9 +6,11 @@ import Header from '../components/header';
 function MyApp({ Component, pageProps }) {
   return (
     <ChakraProvider>
-      <VStack w='100%' mx='auto' justifyContent='space-between'>
+      <VStack w='100%' minH='100vh' mx='auto' justifyContent='space-between'>
         <Header />
-        <Component {...pageProps} />
+        <VStack flex={1}>
+          <Component {...pageProps} />
+        </VStack>
         <Footer />
       </VStack>
     </ChakraProvider>
