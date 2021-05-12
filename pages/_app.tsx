@@ -2,17 +2,20 @@ import '../styles/globals.css';
 import { ChakraProvider, VStack } from '@chakra-ui/react';
 import Footer from '../components/footer';
 import Header from '../components/header';
+import Web3Provider from '../contexts/Web3Context';
 
 function MyApp({ Component, pageProps }) {
   return (
     <ChakraProvider>
-      <VStack w='100%' minH='100vh' mx='auto' justifyContent='space-between'>
-        <Header />
-        <VStack flex={1}>
-          <Component {...pageProps} />
+      <Web3Provider>
+        <VStack w='100%' minH='100vh' mx='auto' justifyContent='space-between'>
+          <Header />
+          <VStack flex={1}>
+            <Component {...pageProps} />
+          </VStack>
+          <Footer />
         </VStack>
-        <Footer />
-      </VStack>
+      </Web3Provider>
     </ChakraProvider>
   );
 }
