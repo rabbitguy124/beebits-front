@@ -64,7 +64,7 @@ const Web3Provider: React.FC = ({ children }) => {
 
   const setWeb3Provider = useCallback(
     async (
-      provider: (provider & CustomChainParams) | undefined,
+      provider: (provider & { chainId: string }) | undefined,
       initialCall: boolean = false
     ) => {
       try {
@@ -73,7 +73,7 @@ const Web3Provider: React.FC = ({ children }) => {
           const ethersProvider = new ethers.providers.Web3Provider(
             web3Provider.currentProvider as ethers.providers.ExternalProvider
           );
-          const providerChainId = provider.chainId;
+          const providerChainId = parseInt(provider.chainId || '0');
           const account = await ethersProvider.getSigner().getAddress();
 
           setWeb3State((prevState) => ({
@@ -93,7 +93,7 @@ const Web3Provider: React.FC = ({ children }) => {
     try {
       setWalletConToggle(true);
       const modalProvider = await web3Modal.connect();
-      await setWeb3Provider(modalProvider);
+      await setWeb3Provider(modalProvider, true);
 
       modalProvider.on('accountsChanged', (accounts: string[]) => {
         setWeb3State((prevState) => ({
@@ -115,7 +115,7 @@ const Web3Provider: React.FC = ({ children }) => {
   useEffect(() => {
     if (window.ethereum) window.ethereum.autoRefreshOnNetworkChange = false;
     const processConnection = async () => {
-      if (web3Modal.cachedProvider) await connectWallet();
+      if (web3Modal.cachedProvider) connectWallet();
       else setWalletConToggle(false);
     };
     processConnection();

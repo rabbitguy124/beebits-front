@@ -12,6 +12,7 @@ import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import Layout from '../../components/layout';
 
 interface BeebitEl {
   hair: {
@@ -114,125 +115,127 @@ const Beebit: React.FC<{ beebit: Omit<BeebitEl, 'voxels'> }> = ({ beebit }) => {
   const { onClose, isOpen, onOpen } = useDisclosure();
 
   return (
-    <Grid
-      w='121.6rem'
-      py='4.8rem'
-      px='3.2rem'
-      mt='-7.8rem'
-      background='white'
-      height='100%'
-      rounded='xl'
-      templateColumns='repeat(2, 1fr)'
-      gap='2rem'
-      boxShadow='0 0 1rem rgba(0, 0, 0, 0.1)'
-    >
-      <Head>
-        <title>Beebit #{id}</title>
-      </Head>
-      <AssetsModal
-        onClose={onClose}
-        isOpen={isOpen}
-        src={source}
-        isLive={isLive}
-      />
-      <VStack spacing='1.6rem'>
-        <Image
-          cursor='pointer'
-          rounded='lg'
-          boxSize='53.6rem'
-          height='100%'
-          src={`${TEMP_URL}/meebitimages/characterimage?index=${id}&type=full`}
-          onClick={() => {
-            setSource(
-              `${TEMP_URL}/meebitimages/characterimage?index=${id}&type=full`
-            );
-            onOpen();
-            setIsLive(false);
-          }}
+    <Layout>
+      <Grid
+        w='121.6rem'
+        py='4.8rem'
+        px='3.2rem'
+        mt='-7.8rem'
+        background='white'
+        height='100%'
+        rounded='xl'
+        templateColumns='repeat(2, 1fr)'
+        gap='2rem'
+        boxShadow='0 0 1rem rgba(0, 0, 0, 0.1)'
+      >
+        <Head>
+          <title>Beebit #{id}</title>
+        </Head>
+        <AssetsModal
+          onClose={onClose}
+          isOpen={isOpen}
+          src={source}
+          isLive={isLive}
         />
-        <HStack spacing='1.6rem'>
+        <VStack spacing='1.6rem'>
           <Image
             cursor='pointer'
             rounded='lg'
-            src={`${TEMP_URL}/meebitimages/characterimage?index=${id}&type=outfit`}
-            boxSize='12.2rem'
-            minH='12.2rem'
+            boxSize='53.6rem'
+            height='100%'
+            src={`${TEMP_URL}/meebitimages/characterimage?index=${id}&type=full`}
             onClick={() => {
               setSource(
-                `${TEMP_URL}/meebitimages/characterimage?index=${id}&type=outfit`
+                `${TEMP_URL}/meebitimages/characterimage?index=${id}&type=full`
               );
               onOpen();
               setIsLive(false);
             }}
           />
-          <Image
-            cursor='pointer'
-            rounded='lg'
-            src={`${TEMP_URL}/meebitimages/characterimage?index=${id}&type=portrait`}
-            boxSize='12.2rem'
-            minH='12.2rem'
-            onClick={() => {
-              setSource(
-                `${TEMP_URL}/meebitimages/characterimage?index=${id}&type=portrait`
-              );
-              onOpen();
-              setIsLive(false);
-            }}
-          />
-          <Image
-            cursor='pointer'
-            rounded='lg'
-            src={`${TEMP_URL}/meebitimages/characterimage?index=${id}&type=shoes`}
-            boxSize='12.2rem'
-            minH='12.2rem'
-            onClick={() => {
-              setSource(
-                `${TEMP_URL}/meebitimages/characterimage?index=${id}&type=shoes`
-              );
-              onOpen();
-              setIsLive(false);
-            }}
-          />
-          <Center
-            rounded='xl'
-            minW='12.2rem'
-            minH='12.2rem'
-            background='#ffba00'
-            p='2rem'
-            cursor='pointer'
-            onClick={() => {
-              setSource(`/beebits-1.glb`);
-              onOpen();
-              setIsLive(true);
-            }}
-          >
-            <Image src='/three-dim.svg' fill='black' />
-          </Center>
-        </HStack>
-      </VStack>
-      <VStack alignItems='flex-start' px='3.2rem'>
-        <Text color='black' fontSize='3.8rem' fontWeight='bold'>
-          Beebit #{id}
-        </Text>
-        <Text fontSize='1.6rem' fontWeight='bold' color='#c89200' mb='2.4rem'>
-          {beebit.type.toUpperCase()}
-        </Text>
-        <Text>
-          View this Beebit on{' '}
-          <Text as='span' color='#c89200' fontWeight='bold'>
-            NFTHack
-          </Text>
-        </Text>
-        <VStack spacing='0' w='100%' mt='2.4rem !important'>
-          <BeeAttribute name='Hair' value={beebit.hair} />
-          <BeeAttribute name='Hat' value={beebit.hat} />
-          <BeeAttribute name='Shirt' value={beebit.shirt} />
-          <BeeAttribute name='Overshirt' value={beebit.shirt} />
-          <BeeAttribute name='Pants' value={beebit.pants} />
-          <BeeAttribute name='Shoes' value={beebit.shoes} />
+          <HStack spacing='1.6rem'>
+            <Image
+              cursor='pointer'
+              rounded='lg'
+              src={`${TEMP_URL}/meebitimages/characterimage?index=${id}&type=outfit`}
+              boxSize='12.2rem'
+              minH='12.2rem'
+              onClick={() => {
+                setSource(
+                  `${TEMP_URL}/meebitimages/characterimage?index=${id}&type=outfit`
+                );
+                onOpen();
+                setIsLive(false);
+              }}
+            />
+            <Image
+              cursor='pointer'
+              rounded='lg'
+              src={`${TEMP_URL}/meebitimages/characterimage?index=${id}&type=portrait`}
+              boxSize='12.2rem'
+              minH='12.2rem'
+              onClick={() => {
+                setSource(
+                  `${TEMP_URL}/meebitimages/characterimage?index=${id}&type=portrait`
+                );
+                onOpen();
+                setIsLive(false);
+              }}
+            />
+            <Image
+              cursor='pointer'
+              rounded='lg'
+              src={`${TEMP_URL}/meebitimages/characterimage?index=${id}&type=shoes`}
+              boxSize='12.2rem'
+              minH='12.2rem'
+              onClick={() => {
+                setSource(
+                  `${TEMP_URL}/meebitimages/characterimage?index=${id}&type=shoes`
+                );
+                onOpen();
+                setIsLive(false);
+              }}
+            />
+            <Center
+              rounded='xl'
+              minW='12.2rem'
+              minH='12.2rem'
+              background='#ffba00'
+              p='2rem'
+              cursor='pointer'
+              onClick={() => {
+                setSource(`/beebits-1.glb`);
+                onOpen();
+                setIsLive(true);
+              }}
+            >
+              <Image src='/three-dim.svg' fill='black' />
+            </Center>
+          </HStack>
         </VStack>
-      </VStack>
-    </Grid>
+        <VStack alignItems='flex-start' px='3.2rem'>
+          <Text color='black' fontSize='3.8rem' fontWeight='bold'>
+            Beebit #{id}
+          </Text>
+          <Text fontSize='1.6rem' fontWeight='bold' color='#c89200' mb='2.4rem'>
+            {beebit.type.toUpperCase()}
+          </Text>
+          <Text>
+            View this Beebit on{' '}
+            <Text as='span' color='#c89200' fontWeight='bold'>
+              NFTHack
+            </Text>
+          </Text>
+          <VStack spacing='0' w='100%' mt='2.4rem !important'>
+            <BeeAttribute name='Hair' value={beebit.hair} />
+            <BeeAttribute name='Hat' value={beebit.hat} />
+            <BeeAttribute name='Shirt' value={beebit.shirt} />
+            <BeeAttribute name='Overshirt' value={beebit.shirt} />
+            <BeeAttribute name='Pants' value={beebit.pants} />
+            <BeeAttribute name='Shoes' value={beebit.shoes} />
+          </VStack>
+        </VStack>
+      </Grid>
+    </Layout>
   );
 };
 

@@ -6,8 +6,23 @@ export const LARGEST_UINT256 = BigNumber.from(
 );
 
 export const networkNames = {
+  1: 'ETH Mainnet',
+  4: 'Rinkeby Testnet',
+  3: 'Ropsten Testnet',
+  42: 'Kovan Testnet',
   56: 'Binance Smart Chain',
   97: 'Binance Smart Chain Testnet',
+};
+
+export const networkCurrencies = {
+  56: {
+    name: 'Binance Coin',
+    symbol: 'BNB',
+  },
+  97: {
+    name: 'Binance Coin',
+    symbol: 'BNB',
+  },
 };
 
 export const networkLabels = {

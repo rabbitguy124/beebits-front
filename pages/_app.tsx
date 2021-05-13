@@ -10,9 +10,7 @@ function MyApp({ Component, pageProps }) {
       <Web3Provider>
         <VStack w='100%' minH='100vh' mx='auto' justifyContent='space-between'>
           <Header />
-          <VStack flex={1}>
-            <Component {...pageProps} />
-          </VStack>
+          <Component {...pageProps} />
           <Footer />
         </VStack>
       </Web3Provider>

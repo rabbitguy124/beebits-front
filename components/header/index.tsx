@@ -1,12 +1,17 @@
+import { Button } from '@chakra-ui/button';
 import { Image } from '@chakra-ui/image';
 import { Box, Center, HStack, Link, Text } from '@chakra-ui/layout';
 import NextLink from 'next/link';
+import { useWeb3 } from '../../contexts/Web3Context';
+import { shortenHash } from '../../helpers';
 
 const Header = () => {
+  const { connectWallet, account } = useWeb3();
   return (
-    <Box minH='14.5rem' background='rgba(31, 41, 55, 1)' w='100%' pb='8rem'>
+    <Center minH='14.5rem' background='rgba(31, 41, 55, 1)' w='100%' pb='8rem'>
       <Center
-        justifyContent='flex-start'
+        justifyContent='space-between'
+        alignItems='center'
         minH='6.4rem'
         borderBottom='1px solid rgba(229, 231, 235, .1)'
         w='121.6rem'
@@ -44,9 +49,34 @@ const Header = () => {
             </Link>
           </NextLink>
         </HStack>
+        {!account ? (
+          <Button
+            background='#ffba00'
+            py='2rem'
+            px='4rem'
+            fontSize='1.4rem'
+            color='#1F2A37'
+            onClick={connectWallet}
+            rounded='xl'
+          >
+            Connect wallet
+          </Button>
+        ) : (
+          <Center
+            background='#ffba00'
+            py='1rem'
+            px='2rem'
+            fontSize='1.4rem'
+            color='#1F2A37'
+            rounded='xl'
+            fontWeight='bold'
+          >
+            {shortenHash(account)}
+          </Center>
+        )}
       </Center>
       <Box pb='4rem' h='8rem' />
-    </Box>
+    </Center>
   );
 };
 
