@@ -122,18 +122,9 @@ const ConnectWeb3: React.FC = () => {
 
 const Layout: React.FC = ({ children }) => {
   const { account, providerChainId } = useWeb3();
-  console.log(
-    providerChainId,
-    !!providerChainId,
-    typeof providerChainId,
-    !!account,
-    [56, 97].includes(providerChainId)
-  );
   const isValid = useMemo(() => {
     return !!account && !!providerChainId && [56, 97].includes(providerChainId);
   }, [account, providerChainId]);
-
-  console.log(isValid);
 
   return <VStack flex={1}>{isValid ? children : <ConnectWeb3 />}</VStack>;
 };
