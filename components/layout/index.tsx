@@ -23,7 +23,7 @@ const ConnectWeb3: React.FC = () => {
       p='2rem'
       minW='40vw'
       minH='50vh'
-      mt='-7rem !important'
+      mt='-5rem !important'
       background='white'
       rounded='3xl'
       boxShadow='0 0 1rem rgba(0, 0, 0, .2)'

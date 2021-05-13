@@ -38,12 +38,12 @@ const Header = () => {
               <Text>All Beebits</Text>
             </Link>
           </NextLink>
-          <NextLink href='/beebits'>
+          <NextLink href='/for-sale'>
             <Link>
               <Text>For Sale</Text>
             </Link>
           </NextLink>
-          <NextLink href='/beebits'>
+          <NextLink href='/community-grant'>
             <Link>
               <Text>Community Grant</Text>
             </Link>
