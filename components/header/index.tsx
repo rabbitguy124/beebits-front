@@ -3,10 +3,10 @@ import { Image } from '@chakra-ui/image';
 import { Box, Center, HStack, Link, Text } from '@chakra-ui/layout';
 import NextLink from 'next/link';
 import { useWeb3 } from '../../contexts/Web3Context';
-import { shortenHash } from '../../helpers';
+import { getNetworkName, shortenHash } from '../../helpers';
 
 const Header = () => {
-  const { connectWallet, account } = useWeb3();
+  const { connectWallet, account, providerChainId } = useWeb3();
   return (
     <Center minH='14.5rem' background='rgba(31, 41, 55, 1)' w='100%' pb='8rem'>
       <Center
@@ -62,17 +62,22 @@ const Header = () => {
             Connect wallet
           </Button>
         ) : (
-          <Center
-            background='#ffba00'
-            py='1rem'
-            px='2rem'
-            fontSize='1.4rem'
-            color='#1F2A37'
-            rounded='xl'
-            fontWeight='bold'
-          >
-            {shortenHash(account)}
-          </Center>
+          <HStack>
+            <Text fontWeight='bold' color='#ffba00' fontSize='1.6rem' mr='1rem'>
+              {getNetworkName(providerChainId) || 'Local Network'}
+            </Text>
+            <Center
+              background='#ffba00'
+              py='1rem'
+              px='2rem'
+              fontSize='1.4rem'
+              color='#1F2A37'
+              rounded='xl'
+              fontWeight='bold'
+            >
+              {shortenHash(account)}
+            </Center>
+          </HStack>
         )}
       </Center>
       <Box pb='4rem' h='8rem' />

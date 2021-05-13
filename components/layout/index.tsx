@@ -1,5 +1,5 @@
 import { Button } from '@chakra-ui/button';
-import { Center, Text, VStack } from '@chakra-ui/layout';
+import { Text, VStack } from '@chakra-ui/layout';
 import { useMemo } from 'react';
 import { useWeb3 } from '../../contexts/Web3Context';
 import { getNetworkName, addNetworkToMetamask } from '../../helpers';
@@ -31,9 +31,13 @@ const ConnectWeb3: React.FC = () => {
       justifyContent='center'
     >
       <Text fontSize='4rem' fontWeight='bold'>
-        {walletConToggle ? 'Connecting wallet' : 'Switch network'}
+        {walletConToggle
+          ? 'Connecting wallet'
+          : account
+          ? 'Switch network'
+          : 'Connect wallet'}
       </Text>
-      <Text mt='1rem !important' fontSize='1.8rem'>
+      <Text fontSize='1.8rem'>
         {walletConToggle ? (
           'Please wait while we connect to your desired wallet'
         ) : (
@@ -45,45 +49,70 @@ const ConnectWeb3: React.FC = () => {
               mx='auto'
               textAlign='center'
             >
-              It seems that you are on{' '}
-              <Text as='span' fontWeight='bold'>
-                {getNetworkName(providerChainId) || 'local network'}.
+              {account ? (
+                <>
+                  It seems that you are on{' '}
+                  <Text as='span' fontWeight='bold'>
+                    {getNetworkName(providerChainId) || 'local network'}.
+                  </Text>
+                </>
+              ) : (
+                <>
+                  <Text as='span' fontWeight='bold' w='100%'>
+                    To access Beebits, please connect your wallet
+                  </Text>
+                  <Button
+                    my='4rem'
+                    background='#ffba00'
+                    py='2rem'
+                    px='4rem'
+                    fontSize='1.8rem'
+                    color='#1F2A37'
+                    onClick={connectWallet}
+                    rounded='xl'
+                    fontWeight='bold'
+                  >
+                    Connect wallet
+                  </Button>
+                </>
+              )}
+            </Text>
+            {account && ![56, 97].includes(providerChainId) && (
+              <Text mt='2rem !important' w='90%' mx='auto' textAlign='center'>
+                Please connect to either <br />
+                {isMetamask ? (
+                  <Button
+                    background='rgba(31, 41, 55, 1)'
+                    _hover={{}}
+                    p='1rem'
+                    fontSize='1.6rem'
+                    color='white'
+                    fontWeight='bold'
+                    onClick={() => addNetworkToMetamask({ chainId: 56 })}
+                  >
+                    {getNetworkName(56)}
+                  </Button>
+                ) : (
+                  <Text fontWeight='bold'>{getNetworkName(56)}</Text>
+                )}{' '}
+                or{' '}
+                {isMetamask ? (
+                  <Button
+                    background='rgba(31, 41, 55, 1)'
+                    _hover={{}}
+                    p='1rem'
+                    fontSize='1.6rem'
+                    color='white'
+                    fontWeight='bold'
+                    onClick={() => addNetworkToMetamask({ chainId: 97 })}
+                  >
+                    {getNetworkName(97)}
+                  </Button>
+                ) : (
+                  <Text fontWeight='bold'>{getNetworkName(97)}</Text>
+                )}{' '}
               </Text>
-            </Text>
-            <Text mt='2rem !important' w='90%' mx='auto' textAlign='center'>
-              Please connect to either <br />
-              {isMetamask ? (
-                <Button
-                  background='rgba(31, 41, 55, 1)'
-                  _hover={{}}
-                  p='1rem'
-                  fontSize='1.6rem'
-                  color='white'
-                  fontWeight='bold'
-                  onClick={() => addNetworkToMetamask({ chainId: 56 })}
-                >
-                  {getNetworkName(56)}
-                </Button>
-              ) : (
-                <Text fontWeight='bold'>{getNetworkName(56)}</Text>
-              )}{' '}
-              or{' '}
-              {isMetamask ? (
-                <Button
-                  background='rgba(31, 41, 55, 1)'
-                  _hover={{}}
-                  p='1rem'
-                  fontSize='1.6rem'
-                  color='white'
-                  fontWeight='bold'
-                  onClick={() => addNetworkToMetamask({ chainId: 97 })}
-                >
-                  {getNetworkName(97)}
-                </Button>
-              ) : (
-                <Text fontWeight='bold'>{getNetworkName(97)}</Text>
-              )}{' '}
-            </Text>
+            )}
           </>
         )}
       </Text>

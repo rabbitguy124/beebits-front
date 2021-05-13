@@ -11,7 +11,7 @@ export const networkNames = {
   3: 'Ropsten Testnet',
   42: 'Kovan Testnet',
   56: 'Binance Smart Chain',
-  97: 'Binance Smart Chain Testnet',
+  97: 'BSC Testnet',
 };
 
 export const networkCurrencies = {
