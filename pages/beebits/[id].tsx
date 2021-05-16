@@ -120,11 +120,11 @@ const Beebit: React.FC<{ beebit: Omit<BeebitEl, "voxels"> }> = ({ beebit }) => {
         px="3.2rem"
         mt="-7.8rem"
         background="white"
+        boxShadow="0 0 1rem rgba(0, 0, 0, 0.1)"
         height="100%"
         rounded="xl"
         templateColumns="repeat(2, 1fr)"
         gap="2rem"
-        boxShadow="0 0 1rem rgba(0, 0, 0, 0.1)"
       >
         <Head>
           <title>Beebit #{id}</title>
