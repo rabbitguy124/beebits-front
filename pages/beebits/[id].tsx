@@ -1,18 +1,18 @@
-import { useDisclosure } from '@chakra-ui/hooks';
-import { Image } from '@chakra-ui/image';
-import { Center, Grid, HStack, Text, VStack } from '@chakra-ui/layout';
+import { useDisclosure } from "@chakra-ui/hooks";
+import { Image } from "@chakra-ui/image";
+import { Center, Grid, HStack, Text, VStack } from "@chakra-ui/layout";
 import {
   Modal,
   ModalBody,
   ModalContent,
   ModalOverlay,
   ModalProps,
-} from '@chakra-ui/modal';
-import { GetServerSideProps } from 'next';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import Layout from '../../components/layout';
+} from "@chakra-ui/modal";
+import { GetServerSideProps } from "next";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import Layout from "../../components/layout";
 
 interface BeebitEl {
   hair: {
@@ -45,7 +45,7 @@ interface BeebitEl {
   voxels: string;
 }
 
-const TEMP_URL = 'https://meebits.larvalabs.com';
+const DATA_URL = "https://cdn.beebits.xyz";
 
 const BeeAttribute: React.FC<{
   name: string;
@@ -53,13 +53,13 @@ const BeeAttribute: React.FC<{
 }> = ({ name, value }) => {
   return value ? (
     <Center
-      py='1.2rem'
-      borderTop='1px solid #e5e7eb'
-      w='100%'
-      justifyContent='space-between'
+      py="1.2rem"
+      borderTop="1px solid #e5e7eb"
+      w="100%"
+      justifyContent="space-between"
     >
-      <Text color='black'>{name}</Text>
-      <Text color='#c89200' fontWeight='bold'>
+      <Text color="black">{name}</Text>
+      <Text color="#c89200" fontWeight="bold">
         {value.element}
         {value.style.length > 0 && `, ${value.style}`}
       </Text>
@@ -68,29 +68,29 @@ const BeeAttribute: React.FC<{
 };
 
 const AssetsModal: React.FC<
-  Omit<ModalProps, 'children'> & { isLive?: boolean; src: string }
+  Omit<ModalProps, "children"> & { isLive?: boolean; src: string }
 > = ({ children, ...props }) => {
   return (
     <Modal onClose={props.onClose} isOpen={props.isOpen} {...props} isCentered>
       <ModalOverlay />
-      <ModalContent minW='60vw' overflow='hidden' rounded='2xl'>
-        <ModalBody padding='0'>
+      <ModalContent minW="60vw" overflow="hidden" rounded="2xl">
+        <ModalBody padding="0">
           {!props.isLive ? (
-            <Image rounded='lg' w='100%' objectFit='contain' src={props.src} />
+            <Image rounded="lg" w="100%" objectFit="contain" src={props.src} />
           ) : (
             <>
               {/** @ts-ignore */}
               <model-viewer
-                exposure='0.67'
-                src='/beebits-1.glb'
-                alt='A 3D model of Meebit #40'
+                exposure="0.67"
+                src={props.src}
+                alt="A 3D model of Meebit #40"
                 auto-rotate
                 camera-controls
                 style={{
-                  width: '100%',
-                  minHeight: '60vh',
-                  background: 'rgb(100, 133, 149)',
-                  objectFit: 'fill',
+                  width: "100%",
+                  minHeight: "60vh",
+                  background: "rgb(100, 133, 149)",
+                  objectFit: "fill",
                 }}
               />
             </>
@@ -101,14 +101,12 @@ const AssetsModal: React.FC<
   );
 };
 
-const Beebit: React.FC<{ beebit: Omit<BeebitEl, 'voxels'> }> = ({ beebit }) => {
+const Beebit: React.FC<{ beebit: Omit<BeebitEl, "voxels"> }> = ({ beebit }) => {
   const {
     query: { id },
   } = useRouter();
 
-  const [source, setSource] = useState(
-    `${TEMP_URL}/meebitimages/characterimage?index=${id}&type=full`
-  );
+  const [source, setSource] = useState(`${DATA_URL}/full/beebits-${id}.png`);
 
   const [isLive, setIsLive] = useState(false);
 
@@ -117,16 +115,16 @@ const Beebit: React.FC<{ beebit: Omit<BeebitEl, 'voxels'> }> = ({ beebit }) => {
   return (
     <Layout>
       <Grid
-        w='121.6rem'
-        py='4.8rem'
-        px='3.2rem'
-        mt='-7.8rem'
-        background='white'
-        height='100%'
-        rounded='xl'
-        templateColumns='repeat(2, 1fr)'
-        gap='2rem'
-        boxShadow='0 0 1rem rgba(0, 0, 0, 0.1)'
+        w="121.6rem"
+        py="4.8rem"
+        px="3.2rem"
+        mt="-7.8rem"
+        background="white"
+        height="100%"
+        rounded="xl"
+        templateColumns="repeat(2, 1fr)"
+        gap="2rem"
+        boxShadow="0 0 1rem rgba(0, 0, 0, 0.1)"
       >
         <Head>
           <title>Beebit #{id}</title>
@@ -137,101 +135,93 @@ const Beebit: React.FC<{ beebit: Omit<BeebitEl, 'voxels'> }> = ({ beebit }) => {
           src={source}
           isLive={isLive}
         />
-        <VStack spacing='1.6rem'>
+        <VStack spacing="1.6rem">
           <Image
-            cursor='pointer'
-            rounded='lg'
-            boxSize='53.6rem'
-            height='100%'
-            src={`${TEMP_URL}/meebitimages/characterimage?index=${id}&type=full`}
+            cursor="pointer"
+            rounded="lg"
+            boxSize="53.6rem"
+            height="100%"
+            src={`${DATA_URL}/full/beebits-${id}.png`}
             onClick={() => {
-              setSource(
-                `${TEMP_URL}/meebitimages/characterimage?index=${id}&type=full`
-              );
+              setSource(`${DATA_URL}/full/beebits-${id}.png`);
               onOpen();
               setIsLive(false);
             }}
           />
-          <HStack spacing='1.6rem'>
+          <HStack spacing="1.6rem">
             <Image
-              cursor='pointer'
-              rounded='lg'
-              src={`${TEMP_URL}/meebitimages/characterimage?index=${id}&type=outfit`}
-              boxSize='12.2rem'
-              minH='12.2rem'
+              cursor="pointer"
+              rounded="lg"
+              src={`${DATA_URL}/portraits/beebits-${id}.png`}
+              boxSize="12.2rem"
+              minH="12.2rem"
               onClick={() => {
-                setSource(
-                  `${TEMP_URL}/meebitimages/characterimage?index=${id}&type=outfit`
-                );
+                setSource(`${DATA_URL}/portraits/beebits-${id}.png`);
                 onOpen();
                 setIsLive(false);
               }}
             />
             <Image
-              cursor='pointer'
-              rounded='lg'
-              src={`${TEMP_URL}/meebitimages/characterimage?index=${id}&type=portrait`}
-              boxSize='12.2rem'
-              minH='12.2rem'
+              cursor="pointer"
+              rounded="lg"
+              src={`${DATA_URL}/full/beebits-${id}.png`}
+              boxSize="12.2rem"
+              minH="12.2rem"
               onClick={() => {
-                setSource(
-                  `${TEMP_URL}/meebitimages/characterimage?index=${id}&type=portrait`
-                );
+                setSource(`${DATA_URL}/full/beebits-${id}.png`);
                 onOpen();
                 setIsLive(false);
               }}
             />
             <Image
-              cursor='pointer'
-              rounded='lg'
-              src={`${TEMP_URL}/meebitimages/characterimage?index=${id}&type=shoes`}
-              boxSize='12.2rem'
-              minH='12.2rem'
+              cursor="pointer"
+              rounded="lg"
+              src={`${DATA_URL}/outfits/beebits-${id}.png`}
+              boxSize="12.2rem"
+              minH="12.2rem"
               onClick={() => {
-                setSource(
-                  `${TEMP_URL}/meebitimages/characterimage?index=${id}&type=shoes`
-                );
+                setSource(`${DATA_URL}/outfits/beebits-${id}.png`);
                 onOpen();
                 setIsLive(false);
               }}
             />
             <Center
-              rounded='xl'
-              minW='12.2rem'
-              minH='12.2rem'
-              background='#ffba00'
-              p='2rem'
-              cursor='pointer'
+              rounded="xl"
+              minW="12.2rem"
+              minH="12.2rem"
+              background="#ffba00"
+              p="2rem"
+              cursor="pointer"
               onClick={() => {
-                setSource(`/beebits-1.glb`);
+                setSource(`${DATA_URL}/renders/beebits-${id}.glb`);
                 onOpen();
                 setIsLive(true);
               }}
             >
-              <Image src='/three-dim.svg' fill='black' />
+              <Image src="/three-dim.svg" fill="black" />
             </Center>
           </HStack>
         </VStack>
-        <VStack alignItems='flex-start' px='3.2rem'>
-          <Text color='black' fontSize='3.8rem' fontWeight='bold'>
+        <VStack alignItems="flex-start" px="3.2rem">
+          <Text color="black" fontSize="3.8rem" fontWeight="bold">
             Beebit #{id}
           </Text>
-          <Text fontSize='1.6rem' fontWeight='bold' color='#c89200' mb='2.4rem'>
+          <Text fontSize="1.6rem" fontWeight="bold" color="#c89200" mb="2.4rem">
             {beebit.type.toUpperCase()}
           </Text>
           <Text>
-            View this Beebit on{' '}
-            <Text as='span' color='#c89200' fontWeight='bold'>
+            View this Beebit on{" "}
+            <Text as="span" color="#c89200" fontWeight="bold">
               NFTHack
             </Text>
           </Text>
-          <VStack spacing='0' w='100%' mt='2.4rem !important'>
-            <BeeAttribute name='Hair' value={beebit.hair} />
-            <BeeAttribute name='Hat' value={beebit.hat} />
-            <BeeAttribute name='Shirt' value={beebit.shirt} />
-            <BeeAttribute name='Overshirt' value={beebit.shirt} />
-            <BeeAttribute name='Pants' value={beebit.pants} />
-            <BeeAttribute name='Shoes' value={beebit.shoes} />
+          <VStack spacing="0" w="100%" mt="2.4rem !important">
+            <BeeAttribute name="Hair" value={beebit.hair} />
+            <BeeAttribute name="Hat" value={beebit.hat} />
+            <BeeAttribute name="Shirt" value={beebit.shirt} />
+            <BeeAttribute name="Overshirt" value={beebit.shirt} />
+            <BeeAttribute name="Pants" value={beebit.pants} />
+            <BeeAttribute name="Shoes" value={beebit.shoes} />
           </VStack>
         </VStack>
       </Grid>
@@ -244,16 +234,10 @@ export const getServerSideProps: GetServerSideProps<
   { id: string }
 > = async (ctx) => {
   const { id } = ctx.query;
-  const idLen = (id || '1').length;
-  const totalZeros = Array.from({ length: 5 - idLen }, () => '0').join('');
   try {
     const beebit = await (
-      await fetch(
-        `${process.env.APP_URL}/meebits/meebit_${totalZeros}${id}.json`
-      )
+      await fetch(`https://cdn.beebits.xyz/data/beebits-${id}.json`)
     ).json();
-
-    delete beebit.voxels;
     return { props: { beebit } };
   } catch (err) {
     console.log(err.message);
