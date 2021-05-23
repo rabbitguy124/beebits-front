@@ -5,13 +5,16 @@ import {
   Grid,
   GridItem,
   HStack,
+  Link,
   Text,
   VStack,
 } from "@chakra-ui/layout";
 import { GetServerSideProps } from "next";
+import Head from "next/head";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useMemo } from "react";
+import BeebitItem from "../../components/beebit-item";
 import Layout from "../../components/layout";
 
 type Beebit = {
@@ -45,42 +48,19 @@ const AllBeebits: React.FC<AllBeebitsProps> = ({ beebits, page }) => {
 
   return (
     <Layout>
-      <VStack
-        alignItems="flex-start"
-        w="121.6rem"
-        py="4.8rem"
-        px="3.2rem"
-        mt="-17.8rem"
-      >
+      <Head>
+        <title>The Beebits - All Beebits</title>
+      </Head>
+      <VStack alignItems="flex-start" w="121.6rem" py="4.8rem" mt="-17.8rem">
         <Text color="white" fontWeight="bold" fontSize="4rem">
           All Beebits
         </Text>
-        <Grid gridTemplateColumns="repeat(6, 1fr)" gap="1rem">
+        <Grid w="100%" gridTemplateColumns="repeat(6, 1fr)" gap="1rem">
           {beebits.map(({ id, imageURL, type }) => (
             <NextLink key={id} href={`/beebits/${id}`}>
-              <GridItem overflow="hidden" p="1.6rem" cursor="pointer">
-                <Image
-                  roundedTop="lg"
-                  h="22.4rem"
-                  objectFit="cover"
-                  src={imageURL}
-                  alt={`Beebit-${id}`}
-                  fallbackSrc="/dummyBeebits.png"
-                />
-                <VStack
-                  alignItems="flex-start"
-                  spacing="0 !important"
-                  roundedBottom="lg"
-                  border="1px solid rgba(0, 0, 0, 0.1)"
-                  borderTop="none"
-                  padding="1.6rem"
-                >
-                  <Text textAlign="left" fontSize="2.25rem" fontWeight="bold">
-                    # {id}
-                  </Text>
-                  <Text>{type}</Text>
-                </VStack>
-              </GridItem>
+              <Link>
+                <BeebitItem imageURL={imageURL} type={type} id={id} />
+              </Link>
             </NextLink>
           ))}
         </Grid>
@@ -111,7 +91,7 @@ const AllBeebits: React.FC<AllBeebitsProps> = ({ beebits, page }) => {
           )}
           <HStack spacing="1.5rem">
             {pageArray.map((p) => (
-              <NextLink href={`/beebits?page=${p}`}>
+              <NextLink key={p} href={`/beebits?page=${p}`}>
                 <Button
                   boxSizing="content-box"
                   background={page === p ? "#1F2A37" : "transparent"}

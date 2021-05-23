@@ -164,11 +164,11 @@ const Beebit: React.FC<{ beebit: Omit<BeebitEl, "voxels"> }> = ({ beebit }) => {
             <Image
               cursor="pointer"
               rounded="lg"
-              src={`${DATA_URL}/full/beebits-${id}.png`}
+              src={`${DATA_URL}/faces/beebits-${id}.png`}
               boxSize="12.2rem"
               minH="12.2rem"
               onClick={() => {
-                setSource(`${DATA_URL}/full/beebits-${id}.png`);
+                setSource(`${DATA_URL}/faces/beebits-${id}.png`);
                 onOpen();
                 setIsLive(false);
               }}
