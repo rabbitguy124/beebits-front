@@ -35,7 +35,9 @@ const useClaimBeebit = () => {
   const { ethersProvider: provider } = useWeb3();
 
   const beebitsContract = useMemo(() => {
-    return new Contract(BEEBITS_CONTRACT, claimABI, provider?.getSigner());
+    return provider
+      ? new Contract(BEEBITS_CONTRACT, claimABI, provider?.getSigner())
+      : null;
   }, [provider]);
 
   function reset() {
@@ -70,8 +72,6 @@ const useClaimBeebit = () => {
           console.error(err.message);
           return { beebits: [] };
         });
-
-        console.log(beebits);
 
         if (beebits.length > 0) {
           setClaimedBeebit(() => ({ ...beebits[0] }));
