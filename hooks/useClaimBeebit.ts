@@ -60,7 +60,7 @@ const useClaimBeebit = () => {
   }
 
   useEffect(() => {
-    if (mintReqStatus && provider) {
+    if (beebitsContract && mintReqStatus && provider) {
       const intervalId = setInterval(async () => {
         const { beebits } = await request(
           process.env.NEXT_PUBLIC_GRAPH_URL,
@@ -74,7 +74,7 @@ const useClaimBeebit = () => {
         });
 
         if (beebits.length > 0) {
-          setClaimedBeebit(() => ({ ...beebits[0] }));
+          setClaimedBeebit(beebits[0]);
           clearInterval(intervalId);
         }
       }, 10000);

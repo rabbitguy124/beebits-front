@@ -6,7 +6,8 @@ export const LARGEST_UINT256 = BigNumber.from(
   '115792089237316195423570985008687907853269984665640564039457584007913129639935'
 );
 
-export const PERMITTABLE_CHAIN_IDS = [56, 97];
+export const PERMITTABLE_CHAIN_ID =
+  process.env.NEXT_PUBLIC_ENV === 'development' ? 97 : 56;
 
 export const networkNames = {
   1: 'ETH Mainnet',

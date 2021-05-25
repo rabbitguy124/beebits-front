@@ -1,8 +1,8 @@
 import { Button } from '@chakra-ui/button';
-import { Text, VStack } from '@chakra-ui/layout';
+import { Box, Text, VStack } from '@chakra-ui/layout';
 import { useMemo } from 'react';
 import { useWeb3 } from '../../contexts/Web3Context';
-import { PERMITTABLE_CHAIN_IDS } from '../../utils/constants';
+import { PERMITTABLE_CHAIN_ID } from '../../utils/constants';
 import { getNetworkName, addNetworkToMetamask } from '../../utils/helpers';
 
 const ConnectWeb3: React.FC = () => {
@@ -38,15 +38,15 @@ const ConnectWeb3: React.FC = () => {
           ? 'Switch network'
           : 'Connect wallet'}
       </Text>
-      <Text fontSize='1.8rem'>
+      <Box fontSize='1.8rem'>
         {walletConToggle ? (
           'Please wait while we connect to your desired wallet'
         ) : (
           <>
-            <Text
+            <Box
               mt='3rem !important'
               fontSize='1.8rem'
-              w='90%'
+              w='100%'
               mx='auto'
               textAlign='center'
             >
@@ -77,10 +77,10 @@ const ConnectWeb3: React.FC = () => {
                   </Button>
                 </>
               )}
-            </Text>
-            {account && !PERMITTABLE_CHAIN_IDS.includes(providerChainId) && (
-              <Text mt='2rem !important' w='90%' mx='auto' textAlign='center'>
-                Please connect to either <br />
+            </Box>
+            {account && providerChainId !== PERMITTABLE_CHAIN_ID && (
+              <Box mt='2rem !important' w='90%' mx='auto' textAlign='center'>
+                Please connect to{' '}
                 {isMetamask ? (
                   <Button
                     background='rgba(31, 41, 55, 1)'
@@ -89,34 +89,22 @@ const ConnectWeb3: React.FC = () => {
                     fontSize='1.6rem'
                     color='white'
                     fontWeight='bold'
-                    onClick={() => addNetworkToMetamask({ chainId: 56 })}
+                    onClick={() =>
+                      addNetworkToMetamask({ chainId: PERMITTABLE_CHAIN_ID })
+                    }
                   >
-                    {getNetworkName(56)}
+                    {getNetworkName(PERMITTABLE_CHAIN_ID)}
                   </Button>
                 ) : (
-                  <Text fontWeight='bold'>{getNetworkName(56)}</Text>
+                  <Text fontWeight='bold'>
+                    {getNetworkName(PERMITTABLE_CHAIN_ID)}
+                  </Text>
                 )}{' '}
-                or{' '}
-                {isMetamask ? (
-                  <Button
-                    background='rgba(31, 41, 55, 1)'
-                    _hover={{}}
-                    p='1rem'
-                    fontSize='1.6rem'
-                    color='white'
-                    fontWeight='bold'
-                    onClick={() => addNetworkToMetamask({ chainId: 97 })}
-                  >
-                    {getNetworkName(97)}
-                  </Button>
-                ) : (
-                  <Text fontWeight='bold'>{getNetworkName(97)}</Text>
-                )}{' '}
-              </Text>
+              </Box>
             )}
           </>
         )}
-      </Text>
+      </Box>
     </VStack>
   );
 };
@@ -125,9 +113,7 @@ const Layout: React.FC = ({ children }) => {
   const { account, providerChainId } = useWeb3();
   const isValid = useMemo(() => {
     return (
-      !!account &&
-      !!providerChainId &&
-      PERMITTABLE_CHAIN_IDS.includes(providerChainId)
+      !!account && !!providerChainId && providerChainId === PERMITTABLE_CHAIN_ID
     );
   }, [account, providerChainId]);
 
