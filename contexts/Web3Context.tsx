@@ -11,7 +11,7 @@ import { ethers } from 'ethers';
 import Web3 from 'web3';
 import { provider, CustomChainParams } from 'web3-core';
 import WalletConnectProvider from '@walletconnect/web3-provider';
-import { getRPCUrl } from '../helpers';
+import { getRPCUrl } from '../utils/helpers';
 
 const Web3Context = createContext<{
   ethersProvider: ethers.providers.Web3Provider | null;

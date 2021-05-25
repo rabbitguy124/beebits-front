@@ -2,7 +2,8 @@ import { Button } from '@chakra-ui/button';
 import { Text, VStack } from '@chakra-ui/layout';
 import { useMemo } from 'react';
 import { useWeb3 } from '../../contexts/Web3Context';
-import { getNetworkName, addNetworkToMetamask } from '../../helpers';
+import { PERMITTABLE_CHAIN_IDS } from '../../utils/constants';
+import { getNetworkName, addNetworkToMetamask } from '../../utils/helpers';
 
 const ConnectWeb3: React.FC = () => {
   const {
@@ -77,7 +78,7 @@ const ConnectWeb3: React.FC = () => {
                 </>
               )}
             </Text>
-            {account && ![56, 97].includes(providerChainId) && (
+            {account && !PERMITTABLE_CHAIN_IDS.includes(providerChainId) && (
               <Text mt='2rem !important' w='90%' mx='auto' textAlign='center'>
                 Please connect to either <br />
                 {isMetamask ? (
@@ -123,7 +124,11 @@ const ConnectWeb3: React.FC = () => {
 const Layout: React.FC = ({ children }) => {
   const { account, providerChainId } = useWeb3();
   const isValid = useMemo(() => {
-    return !!account && !!providerChainId && [56, 97].includes(providerChainId);
+    return (
+      !!account &&
+      !!providerChainId &&
+      PERMITTABLE_CHAIN_IDS.includes(providerChainId)
+    );
   }, [account, providerChainId]);
 
   return <VStack flex={1}>{isValid ? children : <ConnectWeb3 />}</VStack>;
